@@ -1,0 +1,1 @@
+from statviz.server import main
