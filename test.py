@@ -1,1 +1,3 @@
-from statviz.server import main
+from statviz.cli import app
+
+app()
