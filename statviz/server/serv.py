@@ -18,8 +18,4 @@ def main(data: pd.DataFrame):
     app.layout = layout.create_components(app, data)
 
     # Running the server
-    app.run_server()
-
-
-if __name__ == "__main__":
-    main(pd.DataFrame(["A", "B", "C"]))
+    app.run_server(debug=True)

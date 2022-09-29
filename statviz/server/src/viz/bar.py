@@ -4,7 +4,7 @@ from .. import ids
 
 
 def render(app: Dash, data) -> html.Div:
-    fig = px.bar(data, x="filename:lineno(function)", y="cumtime")
+    fig = px.bar(data, x=data["filename:lineno(function)"][:10], y=data["cumtime"][:10])
 
     return html.Div(
         children=[
