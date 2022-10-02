@@ -1,39 +1,43 @@
-# Imports
-import io, os
 import pandas as pd
-import pstats
 
 
 def read_and_convert(file):
-    """Converts a .prof file to a .csv file"""
-    result = io.StringIO()
-    pstats.Stats(file, stream=result).strip_dirs().print_stats()
-    result = result.getvalue()
+    """Converts a .prof file into JSON Data"""
+    from .jsonizer import json_stats
+    import pstats
 
-    # chop the string into a csv-like buffer
-    result = "ncalls" + result.split("ncalls")[-1]
-    result = "\n".join(
-        [",".join(line.rstrip().split(None, 5)) for line in result.split("\n")]
+    f = pstats.Stats(file)
+
+    return json_stats(f)
+
+
+def json_to_df(data) -> pd.DataFrame:
+    """Converts the JSON data to Dataframe"""
+    import pandas as pd
+
+    df = pd.DataFrame(
+        columns=[
+            "Function Name",
+            "No. of Calls",
+            "Total Time",
+            "Total Time Per Call",
+            "Cumulative Time",
+            "Cumulative Time Per Call",
+            "Caller",
+        ]
     )
-
-    # return result
-    with open(f"{file}.csv", "w+") as f:
-        # f=open(result.rsplit('.')[0]+'.csv','w')
-        f.write(result)
-        f.close()
-
-
-def clean_data(df):
-    """Cleans the data from the dataframe"""
-    return df.sort_values(by="cumtime", ascending=False)
+    df = pd.json_normalize(data)
+    df.dropna(inplace=True)
+    df = df.rename(
+        columns={"name": "Function Name", "callees": "Callee"},
+    )
+    return df
 
 
-def stats_to_df(file):
+def stats_to_df(file) -> pd.DataFrame:
     """Converts a .prof file to a dataframe"""
-    read_and_convert(file)
-    df = pd.read_csv(f"{file}.csv")
-    os.remove(f"{file}.csv")
-    df = clean_data(df)
+    f = read_and_convert(file)
+    df = json_to_df(f)
     return df
 
 

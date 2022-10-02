@@ -54,6 +54,8 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 test.py
+test.csv
+test.json
 BinarySearchMain.prof
 
 # Translations

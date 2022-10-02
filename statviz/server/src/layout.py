@@ -16,10 +16,10 @@ def create_components(app: Dash, data):
                 children=[
                     dropdown.render(app, ["Bar", "SunBurst", "TreeMap"]),
                     bar.render(app, data),
-                    sun.render(app, data),
-                    tree.render(app, data),
+                    # sun.render(app, data),
+                    # tree.render(app, data),
                 ],
             ),
-            html.Div(table.render(app, data)),
+            # html.Div(table.render(app, data)),
         ],
     )
