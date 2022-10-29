@@ -15,17 +15,6 @@ def json_to_df(data) -> pd.DataFrame:
     """Converts the JSON data to Dataframe"""
     import pandas as pd
 
-    df = pd.DataFrame(
-        columns=[
-            "Function Name",
-            "No. of Calls",
-            "Total Time",
-            "Total Time Per Call",
-            "Cumulative Time",
-            "Cumulative Time Per Call",
-            "Caller",
-        ]
-    )
     df = pd.json_normalize(data)
     df.dropna(inplace=True)
     df = df.rename(

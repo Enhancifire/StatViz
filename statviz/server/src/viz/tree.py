@@ -8,10 +8,9 @@ def render(app: Dash, data: pd.DataFrame) -> html.Div:
     fig = px.treemap(
         data,
         path=[
-            data["filename:lineno(function)"][:10],
-            data["filename:lineno(function)"][:10],
+            data["Function Name"][:10],
         ],
-        values=data["cumtime"][:10],
+        values=data["tt"][:10],
     )
     return html.Div(
         children=dcc.Graph(

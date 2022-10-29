@@ -1,7 +1,6 @@
 # 3rd-Party Components
 from dash import Dash
 from dash_bootstrap_components.themes import BOOTSTRAP
-import plotly.express as px
 import pandas as pd
 
 # Core Components

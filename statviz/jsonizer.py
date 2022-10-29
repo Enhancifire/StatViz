@@ -1,7 +1,3 @@
-from itertools import chain
-import os
-
-
 def json_stats(s):
     """Converts the stats in the pstats module to a comprehensive JSON file"""
 
